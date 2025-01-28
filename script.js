@@ -1,16 +1,20 @@
-document.addEventListener("DOMContentLoaded", () => {
-    const form = document.getElementById("registration-form");
-    const feedbackDiv = document.getElementById("form-feedback");
+document.addEventListener('DOMContentLoaded', () => {
+    // Select the form and feedback division
+    const form = document.getElementById('registration-form');
+    const feedbackDiv = document.getElementById('form-feedback');
 
-    form.addEventListener("submit", (event) => {
+    // Add event listener to the form
+    form.addEventListener('submit', (event) => {
         event.preventDefault(); // Prevent form submission
 
-        const username = document.getElementById("username").value.trim();
-        const email = document.getElementById("email").value.trim();
-        const password = document.getElementById("password").value.trim();
+        // Retrieve and trim user inputs
+        const username = document.getElementById('username').value.trim();
+        const email = document.getElementById('email').value.trim();
+        const password = document.getElementById('password').value.trim();
 
+        // Initialize validation variables
         let isValid = true;
-        let messages = [];
+        const messages = [];
 
         // Username validation
         if (username.length < 3) {
@@ -19,9 +23,9 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         // Email validation
-        if (!email.includes("@") || !email.includes(".")) {
+        if (!email.includes('@') || !email.includes('.')) {
             isValid = false;
-            messages.push("Please enter a valid email address.");
+            messages.push("Email must include '@' and '.'.");
         }
 
         // Password validation
@@ -31,13 +35,13 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         // Display feedback
-        feedbackDiv.style.display = "block"; // Show feedback div
+        feedbackDiv.style.display = 'block';
         if (isValid) {
             feedbackDiv.textContent = "Registration successful!";
-            feedbackDiv.style.color = "#28a745"; // Green for success
+            feedbackDiv.style.color = "#28a745"; // Green color
         } else {
-            feedbackDiv.innerHTML = messages.join("<br>");
-            feedbackDiv.style.color = "#dc3545"; // Red for errors
+            feedbackDiv.innerHTML = messages.join('<br>'); // Show error messages
+            feedbackDiv.style.color = "#dc3545"; // Red color
         }
     });
 });
