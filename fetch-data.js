@@ -1,37 +1,53 @@
-// Define the async function to fetch user data
 async function fetchUserData() {
-    const apiUrl = 'https://jsonplaceholder.typicode.com/users'; // API URL
-    const dataContainer = document.getElementById('api-data'); // Select the data container element
-
+    const apiUrl = 'https://jsonplaceholder.typicode.com/users';
+    const dataContainer = document.getElementById('api-data');
+  
     try {
-        // Fetch data from the API
-        const response = await fetch(apiUrl);
-
-        // Convert the response to JSON
-        const users = await response.json();
-
-        // Clear the loading message
-        dataContainer.innerHTML = '';
-
-        // Create a <ul> element to hold the list of users
-        const userList = document.createElement('ul');
-
-        // Loop through each user and create <li> elements
-        users.forEach(user => {
-            const listItem = document.createElement('li');
-            listItem.textContent = user.name; // Set the text content to the user's name
-            userList.appendChild(listItem); // Append the <li> to the <ul>
-        });
-
-        // Append the user list to the data container
-        dataContainer.appendChild(userList);
-
+      const response = await fetch(apiUrl);
+      const users = await response.json();
+  
+      dataContainer.innerHTML = ''; // Clear any previous content
+  
+      users.forEach(user => {
+        const userDiv = document.createElement('div');
+        userDiv.textContent = user.name;
+        dataContainer.appendChild(userDiv);
+      });
+  
     } catch (error) {
-        // Handle any errors that occur during the fetch
-        dataContainer.innerHTML = 'Failed to load user data.';
-        console.error('Error fetching user data:', error);
+      console.error('Error fetching data:', error);
+      dataContainer.innerHTML = 'Error fetching user data.';
     }
-}
+  }
+  
+  // Call the function to fetch and display user data
+  fetchUserData();
 
-// Run fetchUserData when the DOM has fully loaded
-document.addEventListener('DOMContentLoaded', fetchUserData);
+  async function fetchUserData() {
+    const apiUrl = 'https://jsonplaceholder.typicode.com/users';
+    const dataContainer = document.getElementById('api-data');
+  
+    try {
+      const response = await fetch(apiUrl);
+      const users = await response.json();
+  
+      // 5. Clear the Loading Message
+      dataContainer.innerHTML = ""; 
+  
+      // 6. Create and Append User List
+      const userList = document.createElement('ul');
+      users.forEach(user => {
+        const listItem = document.createElement('li');
+        listItem.textContent = user.name;
+        userList.appendChild(listItem);
+      });
+      dataContainer.appendChild(userList);
+  
+    } catch (error) {
+      // 7. Error Handling
+      dataContainer.innerHTML = "Failed to load user data.";
+    }
+  }
+  
+  // 8. Invoke fetchUserData on DOMContentLoaded
+  document.addEventListener('DOMContentLoaded', fetchUserData);
